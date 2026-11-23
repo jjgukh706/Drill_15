@@ -8,7 +8,7 @@ from transitions import Machine
 
 import game_world
 from ball import Ball
-
+import play_mode
 import game_framework
 
 # 달리기 속력을 시속 km에서 초속 m, 다시 초당 픽셀로 변환한다.
@@ -195,4 +195,5 @@ class Boy:
     def handle_collision(self, group, other):
         if group == "boy:ball":
             self.ball_count +=1
-            
+        if group == "boy:zombie":
+            play_mode.finish()
