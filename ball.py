@@ -1,4 +1,4 @@
-from pico2d import get_canvas_width, load_image
+from pico2d import get_canvas_width, load_image, draw_rectangle
 
 import game_world
 import game_framework
@@ -37,4 +37,14 @@ class Ball:
 
     def draw(self):
         self.image.draw(self.x, self.y)
+        draw_rectangle(*self.get_bb())
 
+    def get_bb(self):
+        r = self.radius
+        return self.x - r, self.y - r, self.x + r, self.y + r
+
+    def handle_collision(self, group, other):
+        if group == "boy:ball":
+            game_world.remove_object(self)
+        elif group == "grass:ball":
+            self.stopped = True
