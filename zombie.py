@@ -37,6 +37,7 @@ class Zombie:
         self.hp = 1
         self.size = 100
 
+
     def update(self):
         dt = game_framework.frame_time
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * dt) % FRAMES_PER_ACTION
@@ -50,17 +51,21 @@ class Zombie:
     def draw(self):
         image = Zombie.images['Walk'][int(self.frame)]
         if self.dir < 0:
-            image.composite_draw(0, 'h', self.x, self.y, self.size*2,self.size*2)
+            image.composite_draw(0, 'h', self.x, self.y, self.size*2, self.size*2)
         else:
             image.draw(self.x, self.y, self.size*2, self.size*2)
+
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - self.size, self.y - self.size, self.x + self.size, self.y + self.size
 
+
+
     def hitball(self):
         if self.hp == 1:
             self.hp = 0
+            self.y = 100
             self.size = 50
         elif self.hp == 0:
             game_world.remove_object(self)
